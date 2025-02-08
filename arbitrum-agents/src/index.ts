@@ -1,5 +1,2 @@
-async function main(){
-    console.log("Hello World");
-};
-
-main();
+import OpenAI from "openai";
+import { Assistant } from 'openai/resources/beta/assistants';

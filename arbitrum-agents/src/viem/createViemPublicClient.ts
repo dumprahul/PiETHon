@@ -1,5 +1,5 @@
 import { createPublicClient, http } from 'viem'
-import { mainnet,arbitrumSepolia } from 'viem/chains'
+import { arbitrumSepolia } from 'viem/chains'
  
 export function createViemPublicClient(){
 return createPublicClient({ 

@@ -1,6 +1,9 @@
 import { Address } from "viem";
 
 
+//Claim contract at 0x6264292009B6F9D886111BB3678c14522A70bEf4 with funded 0.05ETH
+
+
 export const ERC20_ABI =[
 	{
 		"inputs": [],

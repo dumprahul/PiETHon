@@ -18,6 +18,7 @@ export async function createAssistant(client: OpenAI): Promise<Assistant> {
         -send_transaction: Send the said amount to the "to" recipient address.
         -deploy_erc20: Deploy an erc20 token with given token name, supply
         -deploy_erc721: Deploy an erc721 token with given token name and symbol
+        -claim_insurance: Claim insurance by calling claim() function.
         
         `,
         tools: Object.values(tools).map(tool => tool.definition)

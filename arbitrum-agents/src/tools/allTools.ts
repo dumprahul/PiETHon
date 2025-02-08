@@ -4,6 +4,7 @@ import { getBalanceTool } from './getBalance.js';
 import { getWalletAddressTool } from './getWalletAddress.js';
 import { sendTransactionTool } from './sendTransaction.js';
 import { getTransactionReceiptTool } from './getTransactionReceipt.js';
+import { claimInsuranceTool } from './claiminsurance.js';
 
 
 
@@ -30,4 +31,5 @@ export const tools: Record<string, ToolConfig> = {
     deploy_erc20:deployErc20Tool,
     deploy_erc721:deployErc721Tool,
     get_transaction_receipt: getTransactionReceiptTool,
+    claim_insurance:claimInsuranceTool
 };

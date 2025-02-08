@@ -16,6 +16,7 @@ export async function createAssistant(client: OpenAI): Promise<Assistant> {
         -get_balance: Get the ballance of the wallet. 
         -get address: Get your own wallet address.
         -send_transaction: Send the said amount to the "to" recipient address.
+        -deploy_erc20: Deploy an erc20 token with given token name, supply
         
         `,
         tools: Object.values(tools).map(tool => tool.definition)

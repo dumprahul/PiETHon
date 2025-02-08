@@ -9,7 +9,7 @@ import { performRun } from './openai/performRun.js';
 
 async function main(){
     const client = new OpenAI();
-    const message= "Hey Dhoni send 0.0001ETH to 0x5E2be9Eaaf551f1862585A7D1FFaE2B3D7fE212D"   
+    const message= "Hey Dhoni deploy an erc20 token with Token name RAHUL and the Token symbol BNGR_RAHUL"   
 
     const assistant = await createAssistant(client);
     const thread = await createThread(client,message);

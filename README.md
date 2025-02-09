@@ -20,6 +20,30 @@ git clone https://github.com/dumprahul/PiETHon
 cd arbitrum-agents
 ```
 
+## 2. Install Dependencies
+```bash
+npm install
+```
+
+## 3. Check if Gaia Works
+If Gaia works, you're good to go! Start the application by running:
+```bash
+npm run start
+```
+
+## 4. If not works
+If Gaia doesn’t work, you’ll need to comment out the OpenAI-related code in the createAssistants.ts file.
+Locate the OpenAI code inside createAssistants.ts and comment it out to bypass it temporarily.
+Then run it.
+
+```bash
+npm run start
+```
+
+
+
+
+
 ![piethonee](https://github.com/user-attachments/assets/57e99bed-02f1-4448-98e2-e7d27bc630d6)
 
 ![hehe](https://github.com/user-attachments/assets/b4d7f918-34d9-4e5d-93b5-f79d9b35228f)

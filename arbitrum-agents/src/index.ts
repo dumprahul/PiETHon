@@ -44,7 +44,7 @@ async function chat(thread: Thread, assistant: Assistant): Promise<void> {
             const result = await performRun(run, client, thread);
 
             if (result?.type === 'text') {
-                console.log('\nAgent Dhoni:', result.text.value);
+                console.log('\nAgent Ajith 🏎️ :', result.text.value);
             }
         } catch (error) {
             console.error('Error during chat:', error instanceof Error ? error.message : 'Unknown error');
@@ -59,7 +59,7 @@ async function main(): Promise<void> {
         const assistant = await createAssistant(client);
         const thread = await createThread(client);
 
-        console.log('Chat started! Type "exit" to end the conversation.');
+        console.log('I am Ajith Kumar—precision, speed, and on-chain action. Tell me your need, and lets get it done on-chain ⚡🔥');
         await chat(thread, assistant);
     } catch (error) {
         console.error('Error in main:', error instanceof Error ? error.message : 'Unknown error');

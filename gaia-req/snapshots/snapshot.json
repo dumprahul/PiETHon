@@ -1,0 +1,5 @@
+{
+    "embedding": "https://huggingface.co/gaianet/Nomic-embed-text-v1.5-Embedding-GGUF/resolve/main/nomic-embed-text-v1.5.f16.gguf",
+    "embedding_ctx_size": 768,
+    "snapshot": "https://huggingface.co/datasets/rahulhacksgood/PiETHon/resolve/main/default-8195264105426650-2025-02-09-09-30-38.snapshot.tar.gz"
+  }

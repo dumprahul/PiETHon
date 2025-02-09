@@ -6,6 +6,7 @@ import { sendTransactionTool } from './sendTransaction.js';
 import { getTransactionReceiptTool } from './getTransactionReceipt.js';
 import { claimInsuranceTool } from './claiminsurance.js';
 import { claimCarbonTool } from './claimCarbonCredits.js';
+import { stakeCarbonCreditsTool } from './stakeCarbonCredits.js';
 
 
 
@@ -33,5 +34,6 @@ export const tools: Record<string, ToolConfig> = {
     deploy_erc721:deployErc721Tool,
     get_transaction_receipt: getTransactionReceiptTool,
     claim_insurance:claimInsuranceTool,
-    claim_carboncredits:claimCarbonTool
+    claim_carboncredits:claimCarbonTool,
+    stake_carboncredits:stakeCarbonCreditsTool
 };

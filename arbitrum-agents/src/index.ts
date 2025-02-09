@@ -44,7 +44,7 @@ async function chat(thread: Thread, assistant: Assistant): Promise<void> {
             const result = await performRun(run, client, thread);
 
             if (result?.type === 'text') {
-                console.log('\nAlt:', result.text.value);
+                console.log('\nAgent Dhoni:', result.text.value);
             }
         } catch (error) {
             console.error('Error during chat:', error instanceof Error ? error.message : 'Unknown error');

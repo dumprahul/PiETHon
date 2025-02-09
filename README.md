@@ -9,18 +9,40 @@ PICARBON (PIC) Contract at Arbitrum Sepolia at 0x067A23eeDD0e1B2383B1Deb1e4E9c36
 and the tx_explorer link - https://sepolia.arbiscan.io/token/0x067a23eedd0e1b2383b1deb1e4e9c36dd0fbca9c
 
 
-To run the agents:
+Running the Agents
+Follow these steps to set up and run the agents:
 
+Clone the repository:
+
+bash
+Copy
+Edit
 git clone https://github.com/dumprahul/PiETHon
 cd arbitrum-agents
+Install dependencies:
 
-npm install 
+bash
+Copy
+Edit
+npm install
+Check if Gaia works:
 
-If gaia works - You are good to go at the start and enter "npm run start"
-If not- comment out the openai code in the createAssistants.ts
+If Gaia works, you're good to go! Run the following command to start:
+bash
+Copy
+Edit
+npm run start
+If Gaia doesn’t work:
 
-Then give npm run start
+In case Gaia doesn't work, comment out the OpenAI-related code in createAssistants.ts:
+Locate the OpenAI code inside createAssistants.ts.
+Comment it out to bypass it temporarily.
+Start the application:
 
+bash
+Copy
+Edit
+npm run start
 
 ![piethonee](https://github.com/user-attachments/assets/57e99bed-02f1-4448-98e2-e7d27bc630d6)
 

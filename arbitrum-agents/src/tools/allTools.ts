@@ -5,7 +5,7 @@ import { getWalletAddressTool } from './getWalletAddress.js';
 import { sendTransactionTool } from './sendTransaction.js';
 import { getTransactionReceiptTool } from './getTransactionReceipt.js';
 import { claimInsuranceTool } from './claiminsurance.js';
-import { claimCarbonTool } from './claimCarbon.js';
+import { claimCarbonTool } from './claimCarbonCredits.js';
 
 
 

@@ -1,0 +1,105 @@
+
+This will be a step by step guide on exactly how to install box86 on an Acer Spin 513 equipped with a Snapdragon 7C. This guide should work for several other Snapdragon Chromebooks, though YMMV. Mediatek devices will follow a similar setup, but you will compile the Rockchip (RK3399 or similar) version instead of SD845. Now on with the show:
+
+Step 1 - Setting up Crostini
+I’ve tried this on Crouton, but unfortunately it just doesn’t seem to work on my ARM based Chromebook. If you have Crouton installed on an Intel Chromebook, it should work, but I’m not sure about AMD based Chromebooks, as their graphics drivers are different.
+
+It’s tempting to immediately create a new Crostini container, but that’s actually not what we need here just yet. You see, box86 relies on something called binfmt-support in order to work. Inside Crostini, this means creating a “privileged” lxc container. You may want to have a separate container just for running x86 applications in; for this guide, I’ll be using one called “x86” for simplicity.
+
+Go ahead and enable the chrome flag for allowing multiple Crostini containers if you don’t already have the option. It can be found at chrome://flags and searching Crostini. It may still be experimental on your device. Next, open up a crosh shell, as we don’t actually want to start up a VM container just yet. This is where we create our privileged container. The steps are:
+
+ctrl+alt+t or go to chrome-untrusted://crosh, and type: shell
+enter: vmc container termina your_container --privileged true
+A new container will be created titled “x86”, and once created, you’ll probably see an error and be spat back out to the shell. Type the same command again (vmc container termina your_container --privileged true) and you should be logged in to a shell running bash in your_container. The shell prompt at this point should be <your username>@your_container. It will be the same username as your Chrome OS login. By default, there is no sudo password. If you want to set one, do so now.
+
+Step 2 - Installing prerequisites
+At this point, it should be safe to use Terminal instead of manually entering your virtual machine from crosh.
+
+You’ll need a few packages on top of the default linux container offered by Chrome OS. Those are:
+
+gcc-arm-linux-gnueabihf
+libc6:armhf
+binfmt-support
+cmake
+git
+One little idiosynchrosy you may have noticed is that you’ll need access to armhf libraries for libc6. You’ll also need access to some i386 and amd64 libraries, so it’s best to enable those repositories now.
+
+The apt upgrade is not necessary, but can be done now to ensure you’re running the latest software on your VM. Now, as mentioned before, you need to install the prerequisites:
+
+sudo apt update
+sudo dpkg --add-architecture armhf
+#sudo dpkg --add-architecture i386
+#sudo dpkg --add-architecture amd64
+sudo apt update && sudo apt upgrade -y
+sudo apt install gcc-arm-linux-gnueabihf libc6 binfmt-support cmake nano lsof gedit git cabextract neofetch -y && neofetch
+This should be all the prerequisites you’ll need for now, though if you need any additional libraries or applications later in the guide, I’ll make that clear.
+
+Step 3 - Building and installing box86 and box64
+This part of the guide is actually the most straightforward, because at this point you’ve done all you needed to do to set up a multiarch environment for running x86 and x86-64 applications. Now we just follow the guide for compiling box86, utilizing the cmake build preset (known as “targets”) for Snapdragon 845 SoC’s. For box64, unfortunately the compilation seems to fail with no warning for me when having dynarec enabled, so I’ll leave it disabled for now.
+
+Install Box86/64 - You need to adapt -DRK to your CPU Model accordingly RK3588
+
+git clone --depth 1 https://github.com/ptitSeb/box64
+git clone --depth 1 https://github.com/ptitSeb/box86
+cd ~/box64; mkdir build; cd build; cmake ../ -DRK3588=1; make -j$(nproc); sudo make install
+cd ~/box86; mkdir build; cd build; cmake ../ -DRK3588=1; make -j$(nproc); sudo make install; cd
+There also seems to be a long-standing bug right now with binfmt-support on Debian. I have a working version of both the box86.conf and box64.conf files to put in /usr/share/binfmts/.
+
+sudo nano /usr/share/binfmts/box86.conf
+
+package box86
+interpreter /usr/local/bin/box86
+magic \x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x03\x00
+mask \xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff
+sudo nano /usr/share/binfmts/box64.conf
+
+package box64
+interpreter /usr/local/bin/box64
+magic \x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00
+mask \xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff
+After copying the contents of these files into their respective directories, you can run the following commands to import them and verify that they are functioning correctly:
+
+sudo update-binfmts --import box86.conf
+sudo update-binfmts --import box64.conf
+sudo update-binfmts --enable
+sudo update-binfmts --display
+You should see something along the lines of:
+
+box64.conf (enabled):
+     package = box64
+        type = magic
+      offset = 0
+       magic = \x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00
+        mask = \xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff
+ interpreter = /usr/local/bin/box64
+    detector = 
+box86.conf (enabled):
+     package = box86
+        type = magic
+      offset = 0
+       magic = \x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x03\x00
+        mask = \xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff
+ interpreter = /usr/local/bin/box86
+    detector = 
+    ...
+If not enabled then perform a sudo reboot.
+
+Finally, we can test both box86 and box64 by installing some basic packages:
+
+sudo apt install hello:i386 -y
+hello
+# (box86 debug info, if enabled)
+# Hello, World!
+sudo apt remove hello:i386 -y
+sudo apt install hello:amd64 -y
+hello
+# (box64 debug info, again, if enabled)
+# Hello, World!
+sudo apt remove hello:amd64 -y
+Install Repos and Steam
+sudo aptitude install libc6 libx11-6 libgdk-pixbuf2.0-0 libgtk2.0-0 libstdc++6 libsdl2-2.0-0 mesa-va-drivers libsdl1.2-dev libsdl-mixer1.2 libpng16-16 libcal3d12v5 libsdl2-net-2.0-0 libopenal1 libsdl2-image-2.0-0 libvorbis-dev libcurl4 osspd pulseaudio libjpeg62 libudev1 libgl1-mesa-dev libsnappy1v5 libx11-dev libsmpeg0 libavcodec58 libavformat58 libswscale5 libmyguiengine3debian1v5 libsdl2-mixer-2.0-0 libnss3 libnm0 libdbus-glib-1-2 libudev1 libnspr4 libgudev-1.0-0 libusb-1.0-0 libappindicator1 -y #libboost-filesystem1.81.0 libboost-program-options1.81.0 libboost-iostreams1.81.0
+
+~/box86/install_steam.sh
+
+
+sudo apt install wine64

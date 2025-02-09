@@ -1,0 +1,114 @@
+To run **x86_64** applications on an **AARCH64 (ARM64)** system, you can use a combination of **Box64** and **Box86**. These tools allow you to run **x86** and **x86_64** Linux applications on ARM64 systems by providing emulation. Here's how you can set it up step-by-step.
+
+### Steps to Run x86_64 on ARM64 Using Box64 and Box86
+
+#### 1. **Install Box86 and Box64**
+
+**Box86** is for running 32-bit x86 applications on ARM64, and **Box64** is used for running 64-bit x86 applications on ARM64 systems.
+
+**Box64 Setup**:
+
+- First, you need to install the necessary dependencies and Box64.
+
+1. **Install dependencies**:
+   Start by installing the required dependencies for Box64:
+   
+   ```bash
+   sudo apt update
+   sudo apt install -y build-essential cmake git libboost-all-dev \
+   libgl1-mesa-glx libxcb1 libx11-6 libxrandr2 libxinerama1 \
+   libxcursor1 libxi6 libssl-dev
+   ```
+
+2. **Clone the Box64 repository**:
+   Clone the Box64 repository from GitHub:
+
+   ```bash
+   git clone https://github.com/ptitSeb/box64
+   cd box64
+   ```
+
+3. **Build Box64**:
+   Once inside the Box64 folder, build the project:
+
+   ```bash
+   mkdir build
+   cd build
+   cmake ..
+   make
+   sudo make install
+   ```
+
+4. **Verify Box64 installation**:
+   Once the installation is complete, you can verify that Box64 was installed correctly by running:
+
+   ```bash
+   box64
+   ```
+
+   If everything is working, you'll see some output indicating that Box64 is installed.
+
+#### 2. **Install Box86** (for x86 binaries, if needed)
+Box86 is similar to Box64 but designed for running **x86** (32-bit) applications. If you're interested in running x86 (32-bit) applications as well, follow these steps:
+
+1. **Clone the Box86 repository**:
+   
+   ```bash
+   git clone https://github.com/ptitSeb/box86
+   cd box86
+   ```
+
+2. **Build Box86**:
+   Similar to Box64, you'll need to build Box86:
+
+   ```bash
+   mkdir build
+   cd build
+   cmake ..
+   make
+   sudo make install
+   ```
+
+3. **Verify Box86 installation**:
+   You can check if Box86 is installed by running:
+
+   ```bash
+   box86
+   ```
+
+#### 3. **Run x86_64 Applications with Box64**
+
+To run an x86_64 application using **Box64** on your ARM64 system, follow these steps:
+
+1. **Obtain an x86_64 application** (or use your own). For example, if you have a program called `example_x86_64`, you can run it with Box64.
+
+2. **Run the x86_64 application** using Box64:
+
+   ```bash
+   box64 ./example_x86_64
+   ```
+
+   Box64 will emulate the x86_64 environment and allow you to run the application on your ARM64 system.
+
+#### 4. **Run x86 Applications (32-bit) with Box86** (if needed)
+To run 32-bit x86 applications, use **Box86** in a similar way:
+
+1. **Run the x86 application**:
+
+   ```bash
+   box86 ./example_x86
+   ```
+
+Box86 will take care of running the 32-bit x86 application on your ARM64 machine.
+
+#### 5. **Considerations and Troubleshooting**:
+
+- **Performance**: Emulation introduces overhead. Expect slower performance compared to running natively compiled ARM64 binaries. The experience depends on the complexity and resource usage of the application.
+  
+- **Compatibility**: Not all x86 or x86_64 applications will work perfectly with Box64 or Box86, as some may rely on specific hardware features or instructions not supported by emulation.
+
+- **Libraries**: Some x86_64 applications may need specific libraries to be installed. Ensure that all the required libraries for your application are present.
+
+---
+
+By following these steps, you should be able to run both **x86** and **x86_64** applications on your **ARM64** system using **Box64** and **Box86**. 

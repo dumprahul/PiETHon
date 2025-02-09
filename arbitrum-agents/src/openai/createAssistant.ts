@@ -9,7 +9,7 @@ const apiKey = process.env.LLAMA_API_KEY || "your-api-key-here";
 
 export const client = new OpenAI({
     apiKey: apiKey,
-    baseURL: "https://llama8b.gaia.domains/v1" 
+    baseURL: "https://llama70b.gaia.domains/v1" 
 });
 
 

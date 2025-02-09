@@ -20,6 +20,7 @@
   "dependencies": {
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
+    "node-dht-sensor": "^0.4.4",
     "serialport": "^13.0.0",
     "spi-device": "^3.1.2"
   }

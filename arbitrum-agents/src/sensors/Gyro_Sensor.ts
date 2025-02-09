@@ -11,11 +11,15 @@ const GYRO_ZOUT_H = 0x47; // High byte of gyroscope Z-axis
 // Initialize the I2C bus
 const i2cBus = i2c.openSync(1); // 1 for I2C bus 1 (Raspberry Pi default)
 
+let gyroX: number; // Variable to store the X-axis gyroscope data
+let gyroY: number; // Variable to store the Y-axis gyroscope data
+let gyroZ: number; // Variable to store the Z-axis gyroscope data
+
 function readGyroscopeData() {
   // Read 2 bytes for each axis (high and low bytes)
-  const gyroX = readGyroAxis(GYRO_XOUT_H);
-  const gyroY = readGyroAxis(GYRO_YOUT_H);
-  const gyroZ = readGyroAxis(GYRO_ZOUT_H);
+  gyroX = readGyroAxis(GYRO_XOUT_H);
+  gyroY = readGyroAxis(GYRO_YOUT_H);
+  gyroZ = readGyroAxis(GYRO_ZOUT_H);
 
   console.log(`Gyroscope X: ${gyroX} °/s`);
   console.log(`Gyroscope Y: ${gyroY} °/s`);
@@ -50,3 +54,5 @@ process.on('SIGINT', () => {
   i2cBus.closeSync();
   process.exit();
 });
+
+export { gyroX, gyroY, gyroZ }; // Export the gyroscope data variables

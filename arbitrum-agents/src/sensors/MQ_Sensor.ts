@@ -46,3 +46,5 @@ process.on('SIGINT', () => {
   console.log('Exiting...');
   process.exit();
 });
+
+export { ppm };

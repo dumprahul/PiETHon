@@ -7,6 +7,10 @@ import { createRun } from './openai/createRun.js';
 import { performRun } from './openai/performRun.js';
 import { Thread } from 'openai/resources/beta/threads/threads';
 import { Assistant } from 'openai/resources/beta/assistants';
+import { temperature, humidity } from './sensors/Temp_Sensor';
+import { ppm } from './sensors/MQ_Sensor';
+import { gyroX, gyroY, gyroZ } from './sensors/Gyro_Sensor';
+
 
 const client = new OpenAI();
 

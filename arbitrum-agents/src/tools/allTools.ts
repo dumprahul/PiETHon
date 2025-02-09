@@ -7,6 +7,7 @@ import { getTransactionReceiptTool } from './getTransactionReceipt.js';
 import { claimInsuranceTool } from './claiminsurance.js';
 import { claimCarbonTool } from './claimCarbonCredits.js';
 import { stakeCarbonCreditsTool } from './stakeCarbonCredits.js';
+import { auditCarbonCreditsTool } from './auditCarbonCredits.js';
 
 
 
@@ -35,5 +36,6 @@ export const tools: Record<string, ToolConfig> = {
     get_transaction_receipt: getTransactionReceiptTool,
     claim_insurance:claimInsuranceTool,
     claim_carboncredits:claimCarbonTool,
-    stake_carboncredits:stakeCarbonCreditsTool
+    stake_carboncredits:stakeCarbonCreditsTool,
+    audit_carboncredits:auditCarbonCreditsTool
 };

@@ -20,7 +20,8 @@ export async function createAssistant(client: OpenAI): Promise<Assistant> {
         -deploy_erc721: Deploy an erc721 token with given token name and symbol
         -claim_insurance: Claim insurance by calling claim() function.
         -claim_carboncredits: Claim the fixed carbon credits from the contract.
-        -stake_carboncredits: Stake a certain amount of carbon credits for the user
+        -stake_carboncredits: Stake a certain amount of carbon credits for the user.
+        -audit_carboncredits: Audit a users carbon credit history (purchased, transferred, retired)
         
         `,
         tools: Object.values(tools).map(tool => tool.definition)

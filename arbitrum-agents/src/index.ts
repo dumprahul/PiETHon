@@ -9,7 +9,7 @@ import { performRun } from './openai/performRun.js';
 
 async function main(){
     const client = new OpenAI();
-    const message= "Hey Dhoni, can you stake some 5 PICARBON to 0xd5c8a73C875FB06D86fFF43E4F6ED7Cd3836ac80?"   
+    const message= "Hey Dhoni, can you audit the carbon credits?"   
 
     const assistant = await createAssistant(client);
     const thread = await createThread(client,message);

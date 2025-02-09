@@ -9,7 +9,7 @@ import { performRun } from './openai/performRun.js';
 
 async function main(){
     const client = new OpenAI();
-    const message= "Hey Dhoni, can you deploy an erc20 token contract with token name PICARBON and the token symbol of PIC and the inital supply of 999999999999999999999999999  "   
+    const message= "Hey Dhoni, can you claim carbon credits?"   
 
     const assistant = await createAssistant(client);
     const thread = await createThread(client,message);
